@@ -30,3 +30,4 @@ backend/prisma/dev.db
 
 # Coverage / tests
 coverage/
+*.tsbuildinfo
