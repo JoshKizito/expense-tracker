@@ -1,0 +1,10 @@
+{
+  "app": {
+    "name": "Expense Tracker"
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel"
+  }
+}

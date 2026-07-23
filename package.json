@@ -1,0 +1,24 @@
+{
+  "name": "expense-tracker",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Application de gestion de dépenses - monorepo (frontend + backend)",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "shared"
+  ],
+  "scripts": {
+    "dev:frontend": "npm run dev --workspace=@expense-tracker/frontend",
+    "dev:backend": "npm run dev --workspace=@expense-tracker/backend",
+    "build:frontend": "npm run build --workspace=@expense-tracker/frontend",
+    "build:backend": "npm run build --workspace=@expense-tracker/backend",
+    "build": "npm run build --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  }
+}
