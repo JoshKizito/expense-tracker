@@ -1,0 +1,63 @@
+// Schéma de la base de données - voir https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  expenses   Expense[]
+  categories Category[] // catégories personnalisées créées par cet utilisateur
+
+  @@map("users")
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String
+  icon      String? // ex: "utensils", "car", "film" (noms d'icônes Lucide)
+  color     String? // ex: "#3b82f6"
+  isDefault Boolean  @default(false) // true = catégorie globale visible par tous
+  createdAt DateTime @default(now())
+
+  userId String? // null si catégorie par défaut
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  expenses Expense[]
+
+  // Empêche un même utilisateur de créer 2x la même catégorie.
+  // Les catégories par défaut (userId = null) ne sont pas concernées par
+  // cette contrainte en pratique car on les seed une seule fois.
+  @@unique([userId, name])
+  @@map("categories")
+}
+
+model Expense {
+  id          String   @id @default(uuid())
+  amount      Decimal  @db.Decimal(10, 2)
+  description String
+  date        DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+
+  // Index pour accélérer les requêtes "dépenses d'un user, triées/filtrées par date"
+  @@index([userId, date])
+  @@map("expenses")
+}
