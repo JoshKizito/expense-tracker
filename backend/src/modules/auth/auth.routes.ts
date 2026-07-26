@@ -1,8 +1,11 @@
 import { Router } from "express";
+import { validate } from "../../middlewares/validate.js";
+import { authenticate } from "../../middlewares/authenticate.js";
+import { registerSchema, loginSchema } from "./auth.schema.js";
+import { registerHandler, loginHandler, meHandler } from "./auth.controller.js";
 
 export const authRouter = Router();
 
-// Routes à venir à l'Étape 6 (Authentification) :
-// authRouter.post("/register", ...)
-// authRouter.post("/login", ...)
-// authRouter.get("/me", ...)
+authRouter.post("/register", validate({ body: registerSchema }), registerHandler);
+authRouter.post("/login", validate({ body: loginSchema }), loginHandler);
+authRouter.get("/me", authenticate, meHandler);

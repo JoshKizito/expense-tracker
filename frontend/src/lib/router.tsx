@@ -1,10 +1,15 @@
-import { createBrowserRouter } from "react-router-dom";
-import HomePage from "@/pages/HomePage";
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import LoginPage from "@/features/auth/pages/LoginPage";
+import RegisterPage from "@/features/auth/pages/RegisterPage";
+import ProtectedRoute from "@/features/auth/components/ProtectedRoute";
+import DashboardPage from "@/pages/DashboardPage";
 
-// Les routes protégées (Dashboard, Expenses...) seront ajoutées à l'Étape 6 (Authentification)
 export const router = createBrowserRouter([
+  { path: "/", element: <Navigate to="/dashboard" replace /> },
+  { path: "/login", element: <LoginPage /> },
+  { path: "/register", element: <RegisterPage /> },
   {
-    path: "/",
-    element: <HomePage />,
+    element: <ProtectedRoute />,
+    children: [{ path: "/dashboard", element: <DashboardPage /> }],
   },
 ]);
