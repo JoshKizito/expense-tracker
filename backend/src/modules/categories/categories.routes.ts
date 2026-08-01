@@ -1,7 +1,12 @@
 import { Router } from "express";
+import { authenticate } from "../../middlewares/authenticate.js";
+import { validate } from "../../middlewares/validate.js";
+import { createCategorySchema } from "./categories.schema.js";
+import { listCategoriesHandler, createCategoryHandler } from "./categories.controller.js";
 
 export const categoriesRouter = Router();
 
-// Routes à venir à l'Étape 7 (CRUD des dépenses / catégories) :
-// categoriesRouter.get("/", ...)
-// categoriesRouter.post("/", ...)
+categoriesRouter.use(authenticate);
+
+categoriesRouter.get("/", listCategoriesHandler);
+categoriesRouter.post("/", validate({ body: createCategorySchema }), createCategoryHandler);

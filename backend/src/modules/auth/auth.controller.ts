@@ -18,3 +18,9 @@ export const meHandler = asyncHandler(async (req: Request, res: Response) => {
   const user = await authService.getUserById(req.userId);
   res.status(200).json({ user });
 });
+
+export const updateCurrencyHandler = asyncHandler(async (req: Request, res: Response) => {
+  if (!req.userId) throw new UnauthorizedError();
+  const user = await authService.updateCurrency(req.userId, req.body.currency);
+  res.status(200).json({ user });
+});

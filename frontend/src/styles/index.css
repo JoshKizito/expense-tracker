@@ -11,3 +11,21 @@ body,
 body {
   @apply bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors;
 }
+
+/* Neutralise le fond bleu/jaune que Chrome/Edge appliquent automatiquement
+   sur les champs autofillés — sans ça, la bordure paraît "épaisse" à cause
+   du contraste avec ce fond coloré. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: theme(colors.gray.900);
+  -webkit-box-shadow: 0 0 0px 1000px theme(colors.white) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover,
+.dark input:-webkit-autofill:focus {
+  -webkit-text-fill-color: theme(colors.white);
+  -webkit-box-shadow: 0 0 0px 1000px theme(colors.gray.950) inset;
+}

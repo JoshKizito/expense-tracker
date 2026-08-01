@@ -7,8 +7,8 @@ import {
 } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { TOKEN_STORAGE_KEY } from "@/lib/apiClient";
-import { loginRequest, registerRequest, meRequest } from "../api/authApi";
-import type { LoginPayload, RegisterPayload, User } from "../types";
+import { loginRequest, registerRequest, meRequest, updateCurrencyRequest } from "../api/authApi";
+import type { LoginPayload, RegisterPayload, User, Currency } from "../types";
 
 interface AuthContextValue {
   user: User | null;
@@ -16,6 +16,7 @@ interface AuthContextValue {
   login: (payload: LoginPayload) => Promise<void>;
   register: (payload: RegisterPayload) => Promise<void>;
   logout: () => void;
+  updateCurrency: (currency: Currency) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -25,8 +26,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const queryClient = useQueryClient();
 
-  // Au premier chargement de l'app : si un token existe déjà (session
-  // précédente), on vérifie qu'il est toujours valide via /auth/me.
   useEffect(() => {
     const token = localStorage.getItem(TOKEN_STORAGE_KEY);
     if (!token) {
@@ -55,11 +54,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   function logout() {
     localStorage.removeItem(TOKEN_STORAGE_KEY);
     setUser(null);
-    queryClient.clear(); // vide le cache TanStack Query (données de l'ancien user)
+    queryClient.clear();
+  }
+
+  async function updateCurrency(currency: Currency) {
+    const updated = await updateCurrencyRequest(currency);
+    setUser(updated);
   }
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, isLoading, login, register, logout, updateCurrency }}>
       {children}
     </AuthContext.Provider>
   );

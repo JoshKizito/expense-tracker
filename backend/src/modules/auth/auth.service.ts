@@ -11,8 +11,20 @@ function generateToken(userId: string): string {
   return jwt.sign({ sub: userId }, env.JWT_SECRET, { expiresIn: env.JWT_EXPIRES_IN } as jwt.SignOptions);
 }
 
-function toPublicUser(user: { id: string; email: string; name: string; createdAt: Date }) {
-  return { id: user.id, email: user.email, name: user.name, createdAt: user.createdAt };
+function toPublicUser(user: {
+  id: string;
+  email: string;
+  name: string;
+  currency: string;
+  createdAt: Date;
+}) {
+  return {
+    id: user.id,
+    email: user.email,
+    name: user.name,
+    currency: user.currency,
+    createdAt: user.createdAt,
+  };
 }
 
 export async function register(input: RegisterInput) {
@@ -51,5 +63,10 @@ export async function getUserById(userId: string) {
   if (!user) {
     throw new UnauthorizedError("Utilisateur introuvable");
   }
+  return toPublicUser(user);
+}
+
+export async function updateCurrency(userId: string, currency: "EUR" | "USD" | "RUB") {
+  const user = await prisma.user.update({ where: { id: userId }, data: { currency } });
   return toPublicUser(user);
 }

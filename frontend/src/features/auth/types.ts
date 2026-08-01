@@ -1,7 +1,10 @@
+export type Currency = "EUR" | "USD" | "RUB";
+
 export interface User {
   id: string;
   email: string;
   name: string;
+  currency: Currency;
   createdAt: string;
 }
 

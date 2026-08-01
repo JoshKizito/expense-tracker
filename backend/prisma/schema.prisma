@@ -9,16 +9,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum TransactionType {
+  EXPENSE
+  INCOME
+}
+
+enum Currency {
+  EUR
+  USD
+  RUB
+}
+
 model User {
   id        String   @id @default(uuid())
   email     String   @unique
   password  String
   name      String
+  currency  Currency @default(EUR)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   expenses   Expense[]
-  categories Category[] // catégories personnalisées créées par cet utilisateur
+  categories Category[]
 
   @@map("users")
 }
@@ -26,38 +38,35 @@ model User {
 model Category {
   id        String   @id @default(uuid())
   name      String
-  icon      String? // ex: "utensils", "car", "film" (noms d'icônes Lucide)
-  color     String? // ex: "#3b82f6"
-  isDefault Boolean  @default(false) // true = catégorie globale visible par tous
+  icon      String?
+  color     String?
+  isDefault Boolean  @default(false)
   createdAt DateTime @default(now())
 
-  userId String? // null si catégorie par défaut
+  userId String?
   user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   expenses Expense[]
 
-  // Empêche un même utilisateur de créer 2x la même catégorie.
-  // Les catégories par défaut (userId = null) ne sont pas concernées par
-  // cette contrainte en pratique car on les seed une seule fois.
   @@unique([userId, name])
   @@map("categories")
 }
 
 model Expense {
-  id          String   @id @default(uuid())
-  amount      Decimal  @db.Decimal(10, 2)
+  id          String           @id @default(uuid())
+  amount      Decimal          @db.Decimal(10, 2)
   description String
-  date        DateTime @default(now())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  type        TransactionType  @default(EXPENSE)
+  date        DateTime         @default(now())
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  categoryId String
-  category   Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  categoryId String?
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
 
-  // Index pour accélérer les requêtes "dépenses d'un user, triées/filtrées par date"
   @@index([userId, date])
   @@map("expenses")
 }
