@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Search, Plus, Wallet } from "lucide-react";
+import { Search, Plus, Wallet, SlidersHorizontal, X } from "lucide-react";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useExpenses, useDeleteExpense } from "@/features/expenses/hooks/useExpenses";
 import { groupExpensesByDay } from "@/features/expenses/groupExpensesByDay";
@@ -8,6 +8,7 @@ import { formatMoney } from "@/lib/formatMoney";
 import ExpenseCard from "@/features/expenses/components/ExpenseCard";
 import ExpenseFormModal from "@/features/expenses/components/ExpenseFormModal";
 import ConfirmDeleteModal from "@/features/expenses/components/ConfirmDeleteModal";
+import FilterPanel, { EMPTY_FILTERS, type ExpenseFilters } from "@/features/expenses/components/FilterPanel";
 import type { Expense, TransactionType } from "@/features/expenses/types";
 
 export default function DashboardPage() {
@@ -22,11 +23,32 @@ export default function DashboardPage() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [expenseToDelete, setExpenseToDelete] = useState<Expense | null>(null);
 
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [filters, setFilters] = useState<ExpenseFilters>(EMPTY_FILTERS);
+  const hasActiveFilters =
+    filters.categoryId !== "" || filters.type !== "" || filters.from !== "" || filters.to !== "";
+
   const balance = expenses.reduce(
     (sum, e) => sum + (e.type === "INCOME" ? Number(e.amount) : -Number(e.amount)),
     0
   );
-  const groups = groupExpensesByDay(expenses, t, i18n.language);
+
+  const filteredExpenses = useMemo(() => {
+    return expenses.filter((expense) => {
+      if (searchText.trim() && !expense.description.toLowerCase().includes(searchText.trim().toLowerCase())) {
+        return false;
+      }
+      if (filters.categoryId && expense.categoryId !== filters.categoryId) return false;
+      if (filters.type && expense.type !== filters.type) return false;
+      if (filters.from && new Date(expense.date) < new Date(filters.from)) return false;
+      if (filters.to && new Date(expense.date) > new Date(`${filters.to}T23:59:59`)) return false;
+      return true;
+    });
+  }, [expenses, searchText, filters]);
+
+  const groups = groupExpensesByDay(filteredExpenses, t, i18n.language);
 
   function openCreateForm(type: TransactionType) {
     setEditingExpense(null);
@@ -45,25 +67,67 @@ export default function DashboardPage() {
     setExpenseToDelete(null);
   }
 
+  function closeSearch() {
+    setIsSearchOpen(false);
+    setSearchText("");
+  }
+
   return (
     <div className="max-w-lg md:max-w-2xl mx-auto px-5 py-6">
-      <div className="flex items-center justify-between mb-8">
-        <button
-          aria-label="Search"
-          className="p-2 -ml-2 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
-        >
-          <Search size={20} />
-        </button>
-        <h1 className="text-base font-semibold text-gray-900 dark:text-white">
-          {t("dashboard.title")}
-        </h1>
-        <button
-          onClick={() => openCreateForm("EXPENSE")}
-          aria-label={t("dashboard.addExpense")}
-          className="p-2 -mr-2 text-gray-900 dark:text-white hover:text-primary-600"
-        >
-          <Plus size={22} />
-        </button>
+      <div className="flex items-center justify-between mb-8 gap-2">
+        {isSearchOpen ? (
+          <div className="flex-1 flex items-center gap-2">
+            <input
+              autoFocus
+              type="text"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              placeholder={t("dashboard.searchPlaceholder")}
+              className="flex-1 px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-transparent text-sm focus:outline-none focus:border-primary-500"
+            />
+            <button
+              onClick={closeSearch}
+              aria-label={t("common.cancel")}
+              className="p-1.5 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+            >
+              <X size={18} />
+            </button>
+          </div>
+        ) : (
+          <>
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              aria-label={t("dashboard.searchPlaceholder")}
+              className="p-2 -ml-2 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+            >
+              <Search size={20} />
+            </button>
+            <h1 className="text-base font-semibold text-gray-900 dark:text-white">
+              {t("dashboard.title")}
+            </h1>
+            <div className="flex items-center -mr-2">
+              <button
+                onClick={() => setIsFilterOpen(true)}
+                aria-label={t("filters.title")}
+                className={`relative p-2 ${
+                  hasActiveFilters ? "text-primary-600" : "text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+                }`}
+              >
+                <SlidersHorizontal size={19} />
+                {hasActiveFilters && (
+                  <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-primary-600" />
+                )}
+              </button>
+              <button
+                onClick={() => openCreateForm("EXPENSE")}
+                aria-label={t("dashboard.addExpense")}
+                className="p-2 text-gray-900 dark:text-white hover:text-primary-600"
+              >
+                <Plus size={22} />
+              </button>
+            </div>
+          </>
+        )}
       </div>
 
       <div className="text-center mb-10">
@@ -83,12 +147,15 @@ export default function DashboardPage() {
       {isLoading && (
         <p className="text-center text-gray-500 dark:text-gray-400">{t("common.loading")}</p>
       )}
-      {isError && (
-        <p className="text-center text-red-500">{t("dashboard.loadingError")}</p>
-      )}
+      {isError && <p className="text-center text-red-500">{t("dashboard.loadingError")}</p>}
       {!isLoading && expenses.length === 0 && (
         <p className="text-center text-gray-500 dark:text-gray-400 py-12">
           {t("dashboard.noTransactions")}
+        </p>
+      )}
+      {!isLoading && expenses.length > 0 && filteredExpenses.length === 0 && (
+        <p className="text-center text-gray-500 dark:text-gray-400 py-12">
+          {t("dashboard.noResults")}
         </p>
       )}
 
@@ -128,6 +195,10 @@ export default function DashboardPage() {
           onCancel={() => setExpenseToDelete(null)}
           isDeleting={deleteExpense.isPending}
         />
+      )}
+
+      {isFilterOpen && (
+        <FilterPanel filters={filters} onChange={setFilters} onClose={() => setIsFilterOpen(false)} />
       )}
     </div>
   );

@@ -55,7 +55,9 @@
     "noTransactions": "لا توجد معاملات بعد.",
     "loadingError": "خطأ في تحميل البيانات.",
     "today": "اليوم",
-    "yesterday": "أمس"
+    "yesterday": "أمس",
+    "searchPlaceholder": "البحث عن معاملة...",
+    "noResults": "لا توجد نتائج لهذه الفلاتر."
   },
   "expenses": {
     "newTransaction": "معاملة جديدة",
@@ -83,7 +85,8 @@
       "amountPositive": "يجب أن يكون المبلغ موجبًا",
       "categoryRequired": "الفئة مطلوبة للمصروف",
       "dateRequired": "التاريخ مطلوب"
-    }
+    },
+    "type": "النوع"
   },
   "stats": {
     "title": "أهم الفئات",
@@ -100,5 +103,14 @@
     "light": "فاتح",
     "dark": "داكن",
     "logout": "تسجيل الخروج"
+  },
+  "filters": {
+    "title": "الفلاتر",
+    "allCategories": "كل الفئات",
+    "allTypes": "كل الأنواع",
+    "from": "من",
+    "to": "إلى",
+    "reset": "إعادة تعيين",
+    "apply": "تطبيق"
   }
 }

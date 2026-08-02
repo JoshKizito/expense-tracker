@@ -55,7 +55,9 @@
     "noTransactions": "Aucune transaction pour l'instant.",
     "loadingError": "Erreur lors du chargement des données.",
     "today": "Aujourd'hui",
-    "yesterday": "Hier"
+    "yesterday": "Hier",
+    "searchPlaceholder": "Rechercher une transaction...",
+    "noResults": "Aucun résultat pour ces filtres."
   },
   "expenses": {
     "newTransaction": "Nouvelle transaction",
@@ -83,7 +85,8 @@
       "amountPositive": "Le montant doit être positif",
       "categoryRequired": "Catégorie requise pour une dépense",
       "dateRequired": "Date requise"
-    }
+    },
+    "type": "Type"
   },
   "stats": {
     "title": "Catégories principales",
@@ -100,5 +103,14 @@
     "light": "Clair",
     "dark": "Sombre",
     "logout": "Déconnexion"
+  },
+  "filters": {
+    "title": "Filtres",
+    "allCategories": "Toutes les catégories",
+    "allTypes": "Tous les types",
+    "from": "Du",
+    "to": "Au",
+    "reset": "Réinitialiser",
+    "apply": "Appliquer"
   }
 }

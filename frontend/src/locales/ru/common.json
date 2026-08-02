@@ -55,7 +55,9 @@
     "noTransactions": "Пока нет операций.",
     "loadingError": "Ошибка загрузки данных.",
     "today": "Сегодня",
-    "yesterday": "Вчера"
+    "yesterday": "Вчера",
+    "searchPlaceholder": "Поиск операции...",
+    "noResults": "Нет результатов по этим фильтрам."
   },
   "expenses": {
     "newTransaction": "Новая операция",
@@ -83,7 +85,8 @@
       "amountPositive": "Сумма должна быть положительной",
       "categoryRequired": "Для расхода нужна категория",
       "dateRequired": "Введите дату"
-    }
+    },
+    "type": "Тип"
   },
   "stats": {
     "title": "Основные категории",
@@ -100,5 +103,14 @@
     "light": "Светлая",
     "dark": "Тёмная",
     "logout": "Выйти"
+  },
+  "filters": {
+    "title": "Фильтры",
+    "allCategories": "Все категории",
+    "allTypes": "Все типы",
+    "from": "С",
+    "to": "По",
+    "reset": "Сбросить",
+    "apply": "Применить"
   }
 }

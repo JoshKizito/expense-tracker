@@ -55,7 +55,9 @@
     "noTransactions": "No transactions yet.",
     "loadingError": "Error loading data.",
     "today": "Today",
-    "yesterday": "Yesterday"
+    "yesterday": "Yesterday",
+    "searchPlaceholder": "Search a transaction...",
+    "noResults": "No results for these filters."
   },
   "expenses": {
     "newTransaction": "New transaction",
@@ -83,7 +85,8 @@
       "amountPositive": "Amount must be positive",
       "categoryRequired": "Category required for an expense",
       "dateRequired": "Date required"
-    }
+    },
+    "type": "Type"
   },
   "stats": {
     "title": "Top categories",
@@ -100,5 +103,14 @@
     "light": "Light",
     "dark": "Dark",
     "logout": "Log out"
+  },
+  "filters": {
+    "title": "Filters",
+    "allCategories": "All categories",
+    "allTypes": "All types",
+    "from": "From",
+    "to": "To",
+    "reset": "Reset",
+    "apply": "Apply"
   }
 }
