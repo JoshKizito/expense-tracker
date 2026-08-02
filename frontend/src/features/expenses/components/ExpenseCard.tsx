@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Trash2, Pencil, Wallet } from "lucide-react";
 import { getCategoryIcon } from "@/features/categories/getCategoryIcon";
 import { formatMoney, type Currency } from "@/lib/formatMoney";
@@ -11,10 +12,11 @@ interface ExpenseCardProps {
 }
 
 export default function ExpenseCard({ expense, currency, onEdit, onDelete }: ExpenseCardProps) {
+  const { t } = useTranslation();
   const isIncome = expense.type === "INCOME";
   const Icon = expense.category ? getCategoryIcon(expense.category.icon) : Wallet;
   const color = isIncome ? "#22c55e" : expense.category?.color ?? "#9ca3af";
-  const label = expense.category?.name ?? (isIncome ? "Revenu" : "Sans catégorie");
+  const label = expense.category?.name ?? (isIncome ? t("expenses.revenueLabel") : t("expenses.noCategoryLabel"));
 
   return (
     <div className="group flex items-center gap-4 py-3.5">
@@ -39,14 +41,14 @@ export default function ExpenseCard({ expense, currency, onEdit, onDelete }: Exp
       <div className="hidden group-hover:flex items-center -mr-1">
         <button
           onClick={() => onEdit(expense)}
-          aria-label="Modifier"
+          aria-label={t("common.edit")}
           className="p-1.5 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400"
         >
           <Pencil size={14} />
         </button>
         <button
           onClick={() => onDelete(expense)}
-          aria-label="Supprimer"
+          aria-label={t("common.delete")}
           className="p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30 text-red-400"
         >
           <Trash2 size={14} />

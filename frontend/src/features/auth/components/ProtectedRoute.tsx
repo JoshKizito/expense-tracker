@@ -1,14 +1,15 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../hooks/useAuth";
 
 export default function ProtectedRoute() {
+  const { t } = useTranslation();
   const { user, isLoading } = useAuth();
 
   if (isLoading) {
-    // Évite un flash de redirection pendant la vérification du token au chargement
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-500 dark:text-gray-400">Chargement...</p>
+        <p className="text-gray-500 dark:text-gray-400">{t("common.loading")}</p>
       </div>
     );
   }

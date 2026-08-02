@@ -1,10 +1,104 @@
 {
-  "app": {
-    "name": "متتبع النفقات"
-  },
+  "app": { "name": "متتبع النفقات" },
   "common": {
     "loading": "جار التحميل...",
     "save": "حفظ",
-    "cancel": "إلغاء"
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل"
+  },
+  "nav": {
+    "history": "السجل",
+    "stats": "الإحصائيات",
+    "settings": "الإعدادات"
+  },
+  "auth": {
+    "genericError": "حدث خطأ ما",
+    "login": {
+      "title": "مرحبًا بعودتك 👋",
+      "subtitle": "سجّل الدخول للعودة إلى أموالك",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "example@gmail.com",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "••••••••",
+      "submit": "تسجيل الدخول",
+      "submitting": "جارٍ تسجيل الدخول...",
+      "noAccount": "ليس لديك حساب؟",
+      "createAccount": "إنشاء حساب"
+    },
+    "register": {
+      "title": "إنشاء حساب 🚀",
+      "subtitle": "ابدأ بتتبع أموالك خلال 30 ثانية",
+      "name": "الاسم",
+      "namePlaceholder": "محمد أحمد",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "example@gmail.com",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "8 أحرف على الأقل",
+      "submit": "إنشاء حسابي",
+      "submitting": "جارٍ الإنشاء...",
+      "hasAccount": "لديك حساب بالفعل؟",
+      "login": "تسجيل الدخول"
+    },
+    "validation": {
+      "emailInvalid": "بريد إلكتروني غير صالح",
+      "passwordRequired": "كلمة المرور مطلوبة",
+      "nameMin": "يجب أن يتكوّن الاسم من حرفين على الأقل",
+      "passwordMin": "يجب أن تتكوّن كلمة المرور من 8 أحرف على الأقل"
+    }
+  },
+  "dashboard": {
+    "title": "السجل",
+    "balance": "الرصيد الحالي",
+    "addExpense": "إضافة",
+    "rechargeBalance": "شحن الرصيد",
+    "noTransactions": "لا توجد معاملات بعد.",
+    "loadingError": "خطأ في تحميل البيانات.",
+    "today": "اليوم",
+    "yesterday": "أمس"
+  },
+  "expenses": {
+    "newTransaction": "معاملة جديدة",
+    "edit": "تعديل",
+    "expense": "مصروف",
+    "income": "دخل / شحن",
+    "description": "الوصف",
+    "descriptionPlaceholderExpense": "مثال: بقالة",
+    "descriptionPlaceholderIncome": "مثال: راتب يوليو",
+    "amount": "المبلغ",
+    "date": "التاريخ",
+    "category": "الفئة",
+    "categoryOptional": "الفئة (اختياري)",
+    "selectCategory": "اختر...",
+    "none": "لا شيء",
+    "add": "إضافة",
+    "saving": "جارٍ الحفظ...",
+    "revenueLabel": "دخل",
+    "noCategoryLabel": "بدون فئة",
+    "deleteTitle": "حذف هذا المصروف؟",
+    "deleteBody": "سيتم حذف «{{description}}» نهائيًا. لا يمكن التراجع عن هذا الإجراء.",
+    "deleting": "جارٍ الحذف...",
+    "validation": {
+      "descriptionRequired": "الوصف مطلوب",
+      "amountPositive": "يجب أن يكون المبلغ موجبًا",
+      "categoryRequired": "الفئة مطلوبة للمصروف",
+      "dateRequired": "التاريخ مطلوب"
+    }
+  },
+  "stats": {
+    "title": "أهم الفئات",
+    "noExpenses": "لا توجد مصاريف لهذه الفترة.",
+    "totalSpent": "إجمالي المصروف",
+    "prevMonth": "الشهر السابق",
+    "nextMonth": "الشهر التالي"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "currency": "العملة",
+    "language": "اللغة",
+    "appearance": "المظهر",
+    "light": "فاتح",
+    "dark": "داكن",
+    "logout": "تسجيل الخروج"
   }
 }

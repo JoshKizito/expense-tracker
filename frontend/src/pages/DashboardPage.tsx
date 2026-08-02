@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Search, Plus, Wallet } from "lucide-react";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useExpenses, useDeleteExpense } from "@/features/expenses/hooks/useExpenses";
@@ -10,6 +11,7 @@ import ConfirmDeleteModal from "@/features/expenses/components/ConfirmDeleteModa
 import type { Expense, TransactionType } from "@/features/expenses/types";
 
 export default function DashboardPage() {
+  const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const { data: expenses = [], isLoading, isError } = useExpenses();
   const deleteExpense = useDeleteExpense();
@@ -24,7 +26,7 @@ export default function DashboardPage() {
     (sum, e) => sum + (e.type === "INCOME" ? Number(e.amount) : -Number(e.amount)),
     0
   );
-  const groups = groupExpensesByDay(expenses);
+  const groups = groupExpensesByDay(expenses, t, i18n.language);
 
   function openCreateForm(type: TransactionType) {
     setEditingExpense(null);
@@ -47,15 +49,17 @@ export default function DashboardPage() {
     <div className="max-w-lg md:max-w-2xl mx-auto px-5 py-6">
       <div className="flex items-center justify-between mb-8">
         <button
-          aria-label="Rechercher"
+          aria-label="Search"
           className="p-2 -ml-2 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
         >
           <Search size={20} />
         </button>
-        <h1 className="text-base font-semibold text-gray-900 dark:text-white">Historique</h1>
+        <h1 className="text-base font-semibold text-gray-900 dark:text-white">
+          {t("dashboard.title")}
+        </h1>
         <button
           onClick={() => openCreateForm("EXPENSE")}
-          aria-label="Ajouter"
+          aria-label={t("dashboard.addExpense")}
           className="p-2 -mr-2 text-gray-900 dark:text-white hover:text-primary-600"
         >
           <Plus size={22} />
@@ -66,25 +70,25 @@ export default function DashboardPage() {
         <p className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900 dark:text-white">
           {formatMoney(balance, currency)}
         </p>
-        <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">Solde actuel</p>
+        <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">{t("dashboard.balance")}</p>
       </div>
 
       <button
         onClick={() => openCreateForm("INCOME")}
         className="w-full mb-8 flex items-center justify-center gap-2 py-2.5 rounded-xl border border-gray-200 dark:border-gray-800 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-900 transition"
       >
-        <Wallet size={16} /> Recharger le solde
+        <Wallet size={16} /> {t("dashboard.rechargeBalance")}
       </button>
 
       {isLoading && (
-        <p className="text-center text-gray-500 dark:text-gray-400">Chargement...</p>
+        <p className="text-center text-gray-500 dark:text-gray-400">{t("common.loading")}</p>
       )}
       {isError && (
-        <p className="text-center text-red-500">Erreur lors du chargement des données.</p>
+        <p className="text-center text-red-500">{t("dashboard.loadingError")}</p>
       )}
       {!isLoading && expenses.length === 0 && (
         <p className="text-center text-gray-500 dark:text-gray-400 py-12">
-          Aucune transaction pour l'instant.
+          {t("dashboard.noTransactions")}
         </p>
       )}
 

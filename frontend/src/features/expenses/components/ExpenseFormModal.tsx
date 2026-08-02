@@ -1,30 +1,12 @@
+import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useCategories } from "@/features/categories/hooks/useCategories";
 import { useCreateExpense, useUpdateExpense } from "../hooks/useExpenses";
 import type { Expense, TransactionType } from "../types";
-
-const expenseFormSchema = z
-  .object({
-    description: z.string().min(1, "Description requise").max(255),
-    amount: z.coerce.number().positive("Le montant doit être positif"),
-    type: z.enum(["EXPENSE", "INCOME"]),
-    categoryId: z.string().optional(),
-    date: z.string().min(1, "Date requise"),
-  })
-  .superRefine((data, ctx) => {
-    if (data.type === "EXPENSE" && !data.categoryId) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["categoryId"],
-        message: "Catégorie requise pour une dépense",
-      });
-    }
-  });
-
-type ExpenseFormValues = z.infer<typeof expenseFormSchema>;
 
 interface ExpenseFormModalProps {
   expense: Expense | null;
@@ -41,10 +23,34 @@ export default function ExpenseFormModal({
   defaultType = "EXPENSE",
   onClose,
 }: ExpenseFormModalProps) {
+  const { t } = useTranslation();
   const { data: categories = [] } = useCategories();
   const createExpense = useCreateExpense();
   const updateExpense = useUpdateExpense();
   const isEditing = Boolean(expense);
+
+  const expenseFormSchema = useMemo(
+    () =>
+      z
+        .object({
+          description: z.string().min(1, t("expenses.validation.descriptionRequired")).max(255),
+          amount: z.coerce.number().positive(t("expenses.validation.amountPositive")),
+          type: z.enum(["EXPENSE", "INCOME"]),
+          categoryId: z.string().optional(),
+          date: z.string().min(1, t("expenses.validation.dateRequired")),
+        })
+        .superRefine((data, ctx) => {
+          if (data.type === "EXPENSE" && !data.categoryId) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              path: ["categoryId"],
+              message: t("expenses.validation.categoryRequired"),
+            });
+          }
+        }),
+    [t]
+  );
+  type ExpenseFormValues = z.infer<typeof expenseFormSchema>;
 
   const {
     register,
@@ -69,6 +75,8 @@ export default function ExpenseFormModal({
   });
 
   const currentType = watch("type");
+  const inputClass =
+    "w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:outline-none focus:border-primary-500 transition-colors";
 
   async function onSubmit(values: ExpenseFormValues) {
     const { categoryId, ...rest } = values;
@@ -87,11 +95,11 @@ export default function ExpenseFormModal({
       <div className="w-full max-w-md rounded-xl bg-white dark:bg-gray-900 p-6 shadow-xl">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            {isEditing ? "Modifier" : "Nouvelle transaction"}
+            {isEditing ? t("expenses.edit") : t("expenses.newTransaction")}
           </h2>
           <button
             onClick={onClose}
-            aria-label="Fermer"
+            aria-label={t("common.cancel")}
             className="p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
           >
             <X size={18} />
@@ -109,7 +117,7 @@ export default function ExpenseFormModal({
                   : "text-gray-500 dark:text-gray-400"
               }`}
             >
-              Dépense
+              {t("expenses.expense")}
             </button>
             <button
               type="button"
@@ -120,21 +128,25 @@ export default function ExpenseFormModal({
                   : "text-gray-500 dark:text-gray-400"
               }`}
             >
-              Revenu / Recharge
+              {t("expenses.income")}
             </button>
             <input type="hidden" {...register("type")} />
           </div>
 
           <div>
             <label htmlFor="description" className="block text-sm font-medium mb-1">
-              Description
+              {t("expenses.description")}
             </label>
             <input
               id="description"
               type="text"
-              placeholder={currentType === "INCOME" ? "Ex: Salaire juillet" : "Ex: Courses"}
+              placeholder={
+                currentType === "INCOME"
+                  ? t("expenses.descriptionPlaceholderIncome")
+                  : t("expenses.descriptionPlaceholderExpense")
+              }
               {...register("description")}
-              className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className={inputClass}
             />
             {errors.description && (
               <p className="text-sm text-red-500 mt-1">{errors.description.message}</p>
@@ -144,14 +156,14 @@ export default function ExpenseFormModal({
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label htmlFor="amount" className="block text-sm font-medium mb-1">
-                Montant (€)
+                {t("expenses.amount")}
               </label>
               <input
                 id="amount"
                 type="number"
                 step="0.01"
                 {...register("amount")}
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className={inputClass}
               />
               {errors.amount && (
                 <p className="text-sm text-red-500 mt-1">{errors.amount.message}</p>
@@ -160,28 +172,25 @@ export default function ExpenseFormModal({
 
             <div>
               <label htmlFor="date" className="block text-sm font-medium mb-1">
-                Date
+                {t("expenses.date")}
               </label>
-              <input
-                id="date"
-                type="date"
-                {...register("date")}
-                className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500"
-              />
+              <input id="date" type="date" {...register("date")} className={inputClass} />
               {errors.date && <p className="text-sm text-red-500 mt-1">{errors.date.message}</p>}
             </div>
           </div>
 
           <div>
             <label htmlFor="categoryId" className="block text-sm font-medium mb-1">
-              Catégorie {currentType === "INCOME" && "(optionnel)"}
+              {currentType === "INCOME" ? t("expenses.categoryOptional") : t("expenses.category")}
             </label>
             <select
               id="categoryId"
               {...register("categoryId")}
-              className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary-500"
+              className={inputClass}
             >
-              <option value="">{currentType === "INCOME" ? "Aucune" : "Sélectionner..."}</option>
+              <option value="">
+                {currentType === "INCOME" ? t("expenses.none") : t("expenses.selectCategory")}
+              </option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id}>
                   {cat.name}
@@ -202,7 +211,7 @@ export default function ExpenseFormModal({
                 : "bg-primary-600 hover:bg-primary-700"
             }`}
           >
-            {isSubmitting ? "Enregistrement..." : isEditing ? "Enregistrer" : "Ajouter"}
+            {isSubmitting ? t("expenses.saving") : isEditing ? t("common.save") : t("expenses.add")}
           </button>
         </form>
       </div>

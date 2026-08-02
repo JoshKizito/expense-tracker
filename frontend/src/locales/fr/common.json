@@ -1,10 +1,104 @@
 {
-  "app": {
-    "name": "Expense Tracker"
-  },
+  "app": { "name": "Expense Tracker" },
   "common": {
     "loading": "Chargement...",
     "save": "Enregistrer",
-    "cancel": "Annuler"
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier"
+  },
+  "nav": {
+    "history": "Historique",
+    "stats": "Stats",
+    "settings": "Réglages"
+  },
+  "auth": {
+    "genericError": "Une erreur est survenue",
+    "login": {
+      "title": "Bon retour 👋",
+      "subtitle": "Connecte-toi pour retrouver tes finances",
+      "email": "Email",
+      "emailPlaceholder": "exemple@gmail.com",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Se connecter",
+      "submitting": "Connexion...",
+      "noAccount": "Pas encore de compte ?",
+      "createAccount": "Créer un compte"
+    },
+    "register": {
+      "title": "Créer un compte 🚀",
+      "subtitle": "Commence à suivre tes finances en 30 secondes",
+      "name": "Nom",
+      "namePlaceholder": "Josué Kizito",
+      "email": "Email",
+      "emailPlaceholder": "exemple@gmail.com",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "8 caractères minimum",
+      "submit": "Créer mon compte",
+      "submitting": "Création...",
+      "hasAccount": "Déjà un compte ?",
+      "login": "Se connecter"
+    },
+    "validation": {
+      "emailInvalid": "Email invalide",
+      "passwordRequired": "Mot de passe requis",
+      "nameMin": "Le nom doit faire au moins 2 caractères",
+      "passwordMin": "Le mot de passe doit faire au moins 8 caractères"
+    }
+  },
+  "dashboard": {
+    "title": "Historique",
+    "balance": "Solde actuel",
+    "addExpense": "Ajouter",
+    "rechargeBalance": "Recharger le solde",
+    "noTransactions": "Aucune transaction pour l'instant.",
+    "loadingError": "Erreur lors du chargement des données.",
+    "today": "Aujourd'hui",
+    "yesterday": "Hier"
+  },
+  "expenses": {
+    "newTransaction": "Nouvelle transaction",
+    "edit": "Modifier",
+    "expense": "Dépense",
+    "income": "Revenu / Recharge",
+    "description": "Description",
+    "descriptionPlaceholderExpense": "Ex: Courses",
+    "descriptionPlaceholderIncome": "Ex: Salaire juillet",
+    "amount": "Montant",
+    "date": "Date",
+    "category": "Catégorie",
+    "categoryOptional": "Catégorie (optionnel)",
+    "selectCategory": "Sélectionner...",
+    "none": "Aucune",
+    "add": "Ajouter",
+    "saving": "Enregistrement...",
+    "revenueLabel": "Revenu",
+    "noCategoryLabel": "Sans catégorie",
+    "deleteTitle": "Supprimer la dépense ?",
+    "deleteBody": "« {{description}} » sera définitivement supprimée. Cette action est irréversible.",
+    "deleting": "Suppression...",
+    "validation": {
+      "descriptionRequired": "Description requise",
+      "amountPositive": "Le montant doit être positif",
+      "categoryRequired": "Catégorie requise pour une dépense",
+      "dateRequired": "Date requise"
+    }
+  },
+  "stats": {
+    "title": "Catégories principales",
+    "noExpenses": "Aucune dépense sur cette période.",
+    "totalSpent": "Total dépensé",
+    "prevMonth": "Mois précédent",
+    "nextMonth": "Mois suivant"
+  },
+  "settings": {
+    "title": "Réglages",
+    "currency": "Devise",
+    "language": "Langue",
+    "appearance": "Apparence",
+    "light": "Clair",
+    "dark": "Sombre",
+    "logout": "Déconnexion"
   }
 }

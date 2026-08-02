@@ -1,10 +1,104 @@
 {
-  "app": {
-    "name": "Expense Tracker"
-  },
+  "app": { "name": "Expense Tracker" },
   "common": {
     "loading": "Загрузка...",
     "save": "Сохранить",
-    "cancel": "Отмена"
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "edit": "Изменить"
+  },
+  "nav": {
+    "history": "История",
+    "stats": "Статистика",
+    "settings": "Настройки"
+  },
+  "auth": {
+    "genericError": "Произошла ошибка",
+    "login": {
+      "title": "С возвращением 👋",
+      "subtitle": "Войдите, чтобы вернуться к своим финансам",
+      "email": "Email",
+      "emailPlaceholder": "example@gmail.com",
+      "password": "Пароль",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Войти",
+      "submitting": "Вход...",
+      "noAccount": "Ещё нет аккаунта?",
+      "createAccount": "Создать аккаунт"
+    },
+    "register": {
+      "title": "Создать аккаунт 🚀",
+      "subtitle": "Начните следить за финансами за 30 секунд",
+      "name": "Имя",
+      "namePlaceholder": "Иван Иванов",
+      "email": "Email",
+      "emailPlaceholder": "example@gmail.com",
+      "password": "Пароль",
+      "passwordPlaceholder": "Минимум 8 символов",
+      "submit": "Создать аккаунт",
+      "submitting": "Создание...",
+      "hasAccount": "Уже есть аккаунт?",
+      "login": "Войти"
+    },
+    "validation": {
+      "emailInvalid": "Неверный email",
+      "passwordRequired": "Введите пароль",
+      "nameMin": "Имя должно содержать минимум 2 символа",
+      "passwordMin": "Пароль должен содержать минимум 8 символов"
+    }
+  },
+  "dashboard": {
+    "title": "История",
+    "balance": "Текущий баланс",
+    "addExpense": "Добавить",
+    "rechargeBalance": "Пополнить баланс",
+    "noTransactions": "Пока нет операций.",
+    "loadingError": "Ошибка загрузки данных.",
+    "today": "Сегодня",
+    "yesterday": "Вчера"
+  },
+  "expenses": {
+    "newTransaction": "Новая операция",
+    "edit": "Изменить",
+    "expense": "Расход",
+    "income": "Доход / Пополнение",
+    "description": "Описание",
+    "descriptionPlaceholderExpense": "Напр.: Продукты",
+    "descriptionPlaceholderIncome": "Напр.: Зарплата за июль",
+    "amount": "Сумма",
+    "date": "Дата",
+    "category": "Категория",
+    "categoryOptional": "Категория (необязательно)",
+    "selectCategory": "Выбрать...",
+    "none": "Нет",
+    "add": "Добавить",
+    "saving": "Сохранение...",
+    "revenueLabel": "Доход",
+    "noCategoryLabel": "Без категории",
+    "deleteTitle": "Удалить расход?",
+    "deleteBody": "«{{description}}» будет удалено безвозвратно. Это действие нельзя отменить.",
+    "deleting": "Удаление...",
+    "validation": {
+      "descriptionRequired": "Введите описание",
+      "amountPositive": "Сумма должна быть положительной",
+      "categoryRequired": "Для расхода нужна категория",
+      "dateRequired": "Введите дату"
+    }
+  },
+  "stats": {
+    "title": "Основные категории",
+    "noExpenses": "Нет расходов за этот период.",
+    "totalSpent": "Всего потрачено",
+    "prevMonth": "Предыдущий месяц",
+    "nextMonth": "Следующий месяц"
+  },
+  "settings": {
+    "title": "Настройки",
+    "currency": "Валюта",
+    "language": "Язык",
+    "appearance": "Внешний вид",
+    "light": "Светлая",
+    "dark": "Тёмная",
+    "logout": "Выйти"
   }
 }

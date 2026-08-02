@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { useAuth } from "@/features/auth/hooks/useAuth";
@@ -7,13 +8,17 @@ import { getCategoryIcon } from "@/features/categories/getCategoryIcon";
 import { formatMoney } from "@/lib/formatMoney";
 import { getMonthRange, computeCategoryBreakdown } from "@/features/stats/computeCategoryBreakdown";
 
-const monthFormatter = new Intl.DateTimeFormat("fr-FR", { month: "long", year: "numeric" });
-
 export default function StatsPage() {
+  const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const { data: expenses = [] } = useExpenses();
   const currency = user?.currency ?? "EUR";
   const [refDate, setRefDate] = useState(new Date());
+
+  const monthFormatter = useMemo(
+    () => new Intl.DateTimeFormat(i18n.language, { month: "long", year: "numeric" }),
+    [i18n.language]
+  );
 
   const range = useMemo(() => getMonthRange(refDate), [refDate]);
   const breakdown = useMemo(() => computeCategoryBreakdown(expenses, range), [expenses, range]);
@@ -33,13 +38,13 @@ export default function StatsPage() {
   return (
     <div className="max-w-lg md:max-w-2xl mx-auto px-5 py-6">
       <h1 className="text-base font-semibold text-center text-gray-900 dark:text-white mb-6">
-        Catégories principales
+        {t("stats.title")}
       </h1>
 
       <div className="flex items-center justify-center gap-4 mb-8">
         <button
           onClick={goToPreviousMonth}
-          aria-label="Mois précédent"
+          aria-label={t("stats.prevMonth")}
           className="p-2 rounded-lg bg-gray-100 dark:bg-gray-900 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200"
         >
           <ChevronLeft size={16} />
@@ -49,7 +54,7 @@ export default function StatsPage() {
         </span>
         <button
           onClick={goToNextMonth}
-          aria-label="Mois suivant"
+          aria-label={t("stats.nextMonth")}
           className="p-2 rounded-lg bg-gray-100 dark:bg-gray-900 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200"
         >
           <ChevronRight size={16} />
@@ -58,7 +63,7 @@ export default function StatsPage() {
 
       {breakdown.length === 0 ? (
         <p className="text-center text-gray-500 dark:text-gray-400 py-12">
-          Aucune dépense sur cette période.
+          {t("stats.noExpenses")}
         </p>
       ) : (
         <>
@@ -98,7 +103,7 @@ export default function StatsPage() {
           </div>
 
           <div className="flex justify-between items-baseline mb-4">
-            <span className="text-sm text-gray-500 dark:text-gray-400">Total dépensé</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">{t("stats.totalSpent")}</span>
             <span className="text-base font-semibold text-gray-900 dark:text-white">
               {formatMoney(total, currency)}
             </span>

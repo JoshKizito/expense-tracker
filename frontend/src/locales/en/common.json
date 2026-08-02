@@ -1,10 +1,104 @@
 {
-  "app": {
-    "name": "Expense Tracker"
-  },
+  "app": { "name": "Expense Tracker" },
   "common": {
     "loading": "Loading...",
     "save": "Save",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit"
+  },
+  "nav": {
+    "history": "History",
+    "stats": "Stats",
+    "settings": "Settings"
+  },
+  "auth": {
+    "genericError": "Something went wrong",
+    "login": {
+      "title": "Welcome back 👋",
+      "subtitle": "Sign in to get back to your finances",
+      "email": "Email",
+      "emailPlaceholder": "example@gmail.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Sign in",
+      "submitting": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "createAccount": "Create an account"
+    },
+    "register": {
+      "title": "Create an account 🚀",
+      "subtitle": "Start tracking your finances in 30 seconds",
+      "name": "Name",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "example@gmail.com",
+      "password": "Password",
+      "passwordPlaceholder": "8 characters minimum",
+      "submit": "Create my account",
+      "submitting": "Creating...",
+      "hasAccount": "Already have an account?",
+      "login": "Sign in"
+    },
+    "validation": {
+      "emailInvalid": "Invalid email",
+      "passwordRequired": "Password required",
+      "nameMin": "Name must be at least 2 characters",
+      "passwordMin": "Password must be at least 8 characters"
+    }
+  },
+  "dashboard": {
+    "title": "History",
+    "balance": "Current balance",
+    "addExpense": "Add",
+    "rechargeBalance": "Top up balance",
+    "noTransactions": "No transactions yet.",
+    "loadingError": "Error loading data.",
+    "today": "Today",
+    "yesterday": "Yesterday"
+  },
+  "expenses": {
+    "newTransaction": "New transaction",
+    "edit": "Edit",
+    "expense": "Expense",
+    "income": "Income / Top up",
+    "description": "Description",
+    "descriptionPlaceholderExpense": "E.g. Groceries",
+    "descriptionPlaceholderIncome": "E.g. July salary",
+    "amount": "Amount",
+    "date": "Date",
+    "category": "Category",
+    "categoryOptional": "Category (optional)",
+    "selectCategory": "Select...",
+    "none": "None",
+    "add": "Add",
+    "saving": "Saving...",
+    "revenueLabel": "Income",
+    "noCategoryLabel": "No category",
+    "deleteTitle": "Delete this expense?",
+    "deleteBody": "\"{{description}}\" will be permanently deleted. This action cannot be undone.",
+    "deleting": "Deleting...",
+    "validation": {
+      "descriptionRequired": "Description required",
+      "amountPositive": "Amount must be positive",
+      "categoryRequired": "Category required for an expense",
+      "dateRequired": "Date required"
+    }
+  },
+  "stats": {
+    "title": "Top categories",
+    "noExpenses": "No expenses for this period.",
+    "totalSpent": "Total spent",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month"
+  },
+  "settings": {
+    "title": "Settings",
+    "currency": "Currency",
+    "language": "Language",
+    "appearance": "Appearance",
+    "light": "Light",
+    "dark": "Dark",
+    "logout": "Log out"
   }
 }
