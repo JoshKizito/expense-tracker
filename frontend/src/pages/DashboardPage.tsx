@@ -1,14 +1,16 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Search, Plus, Wallet, SlidersHorizontal, X } from "lucide-react";
+import { Search, Plus, Wallet, SlidersHorizontal, X, Download } from "lucide-react";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { useExpenses, useDeleteExpense } from "@/features/expenses/hooks/useExpenses";
 import { groupExpensesByDay } from "@/features/expenses/groupExpensesByDay";
+import { exportExpensesToCsv } from "@/features/expenses/exportToCsv";
 import { formatMoney } from "@/lib/formatMoney";
 import ExpenseCard from "@/features/expenses/components/ExpenseCard";
 import ExpenseFormModal from "@/features/expenses/components/ExpenseFormModal";
 import ConfirmDeleteModal from "@/features/expenses/components/ConfirmDeleteModal";
 import FilterPanel, { EMPTY_FILTERS, type ExpenseFilters } from "@/features/expenses/components/FilterPanel";
+import ExportChoiceModal from "@/features/expenses/components/ExportChoiceModal";
 import type { Expense, TransactionType } from "@/features/expenses/types";
 
 export default function DashboardPage() {
@@ -26,9 +28,10 @@ export default function DashboardPage() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isExportOpen, setIsExportOpen] = useState(false);
   const [filters, setFilters] = useState<ExpenseFilters>(EMPTY_FILTERS);
   const hasActiveFilters =
-    filters.categoryId !== "" || filters.type !== "" || filters.from !== "" || filters.to !== "";
+    filters.categoryId !== "" || filters.type !== "" || filters.from !== "" || filters.to !== "" || searchText.trim() !== "";
 
   const balance = expenses.reduce(
     (sum, e) => sum + (e.type === "INCOME" ? Number(e.amount) : -Number(e.amount)),
@@ -72,6 +75,31 @@ export default function DashboardPage() {
     setSearchText("");
   }
 
+  const csvHeaders = {
+    date: t("dashboard.csvDate"),
+    description: t("dashboard.csvDescription"),
+    category: t("dashboard.csvCategory"),
+    type: t("dashboard.csvType"),
+    amount: t("dashboard.csvAmount"),
+    expenseLabel: t("dashboard.csvExpenseLabel"),
+    incomeLabel: t("dashboard.csvIncomeLabel"),
+    noCategoryLabel: t("expenses.noCategoryLabel"),
+  };
+
+  function runExport(list: Expense[]) {
+    const filename = `expense-tracker-${new Date().toISOString().slice(0, 10)}.csv`;
+    exportExpensesToCsv(list, currency, csvHeaders, filename);
+    setIsExportOpen(false);
+  }
+
+  function handleExportClick() {
+    if (hasActiveFilters) {
+      setIsExportOpen(true);
+    } else {
+      runExport(expenses);
+    }
+  }
+
   return (
     <div className="max-w-lg md:max-w-2xl mx-auto px-5 py-6">
       <div className="flex items-center justify-between mb-8 gap-2">
@@ -106,6 +134,13 @@ export default function DashboardPage() {
               {t("dashboard.title")}
             </h1>
             <div className="flex items-center -mr-2">
+              <button
+                onClick={handleExportClick}
+                aria-label={t("dashboard.exportCsv")}
+                className="p-2 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200"
+              >
+                <Download size={18} />
+              </button>
               <button
                 onClick={() => setIsFilterOpen(true)}
                 aria-label={t("filters.title")}
@@ -199,6 +234,16 @@ export default function DashboardPage() {
 
       {isFilterOpen && (
         <FilterPanel filters={filters} onChange={setFilters} onClose={() => setIsFilterOpen(false)} />
+      )}
+
+      {isExportOpen && (
+        <ExportChoiceModal
+          totalCount={expenses.length}
+          filteredCount={filteredExpenses.length}
+          onExportAll={() => runExport(expenses)}
+          onExportFiltered={() => runExport(filteredExpenses)}
+          onCancel={() => setIsExportOpen(false)}
+        />
       )}
     </div>
   );
