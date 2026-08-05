@@ -12,8 +12,21 @@ export function createApp(): Express {
   // Sécurité HTTP de base (headers)
   app.use(helmet());
 
-  // CORS restreint à l'origine du frontend (configurable via .env)
-  app.use(cors({ origin: env.CORS_ORIGIN, credentials: true }));
+  // CORS restreint aux origines autorisées (configurable via .env, séparées par des virgules)
+const allowedOrigins = env.CORS_ORIGIN.split(",").map((origin) => origin.trim());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // `origin` est undefined pour les requêtes sans navigateur (Postman, curl...)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`Origine non autorisée par CORS : ${origin}`));
+      }
+    },
+    credentials: true,
+  })
+);
 
   // Logs des requêtes HTTP (format "dev" = coloré et concis, adapté au développement)
   app.use(morgan(env.NODE_ENV === "development" ? "dev" : "combined"));
