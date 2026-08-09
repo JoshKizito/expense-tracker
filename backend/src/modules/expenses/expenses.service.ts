@@ -52,9 +52,12 @@ export async function updateExpense(
     await assertCategoryIsUsable(userId, input.categoryId);
   }
 
+  const { categoryId, ...rest } = input;
+  const data = categoryId !== undefined ? { ...rest, categoryId } : rest;
+
   return prisma.expense.update({
     where: { id: expenseId },
-    data: input,
+    data,
     include: withCategory,
   });
 }
