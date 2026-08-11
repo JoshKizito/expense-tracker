@@ -1,22 +1,26 @@
 import type { Category } from "@/features/categories/types";
 
+export type TransactionType = "EXPENSE" | "INCOME";
+
 export interface Expense {
   id: string;
-  amount: string; // Prisma Decimal sérialisé en string par Express/JSON
+  amount: string;
   description: string;
+  type: TransactionType;
   date: string;
   createdAt: string;
   updatedAt: string;
   userId: string;
-  categoryId: string;
-  category: Category;
+  categoryId: string | null;
+  category: Category | null;
 }
 
 export interface CreateExpensePayload {
   amount: number;
   description: string;
   date?: string;
-  categoryId: string;
+  type: TransactionType;
+  categoryId?: string;
 }
 
 export type UpdateExpensePayload = Partial<CreateExpensePayload>;
