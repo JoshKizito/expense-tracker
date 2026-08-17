@@ -1,5 +1,3 @@
-// Schéma de la base de données - voir https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -31,6 +29,7 @@ model User {
 
   expenses   Expense[]
   categories Category[]
+  goals      Goal[]
 
   @@map("users")
 }
@@ -53,13 +52,13 @@ model Category {
 }
 
 model Expense {
-  id          String           @id @default(uuid())
-  amount      Decimal          @db.Decimal(10, 2)
+  id          String          @id @default(uuid())
+  amount      Decimal         @db.Decimal(10, 2)
   description String
-  type        TransactionType  @default(EXPENSE)
-  date        DateTime         @default(now())
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  type        TransactionType @default(EXPENSE)
+  date        DateTime        @default(now())
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -69,4 +68,20 @@ model Expense {
 
   @@index([userId, date])
   @@map("expenses")
+}
+
+// Objectif d'épargne : "Je veux acheter X, à Y€, en mettant Z€/mois de côté"
+model Goal {
+  id                  String   @id @default(uuid())
+  name                String
+  targetAmount        Decimal  @db.Decimal(10, 2)
+  monthlyContribution Decimal  @db.Decimal(10, 2)
+  savedAmount         Decimal  @db.Decimal(10, 2) @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("goals")
 }
