@@ -9,6 +9,7 @@
   },
   "nav": {
     "history": "История",
+    "goals": "Цели",
     "stats": "Статистика",
     "settings": "Настройки"
   },
@@ -57,7 +58,19 @@
     "today": "Сегодня",
     "yesterday": "Вчера",
     "searchPlaceholder": "Поиск операции...",
-    "noResults": "Нет результатов по этим фильтрам."
+    "noResults": "Нет результатов по этим фильтрам.",
+    "exportCsv": "Экспорт",
+    "exportChooseTitle": "Что вы хотите экспортировать?",
+    "exportAll": "Всю историю",
+    "exportFiltered": "Текущий отфильтрованный результат",
+    "exportItems": "операций",
+    "csvExpenseLabel": "Расход",
+    "csvIncomeLabel": "Доход",
+    "csvDate": "Дата",
+    "csvDescription": "Описание",
+    "csvCategory": "Категория",
+    "csvType": "Тип",
+    "csvAmount": "Сумма"
   },
   "expenses": {
     "newTransaction": "Новая операция",
@@ -112,5 +125,38 @@
     "to": "По",
     "reset": "Сбросить",
     "apply": "Применить"
+  },
+  "goals": {
+    "title": "Цели",
+    "newGoal": "Новая цель",
+    "edit": "Изменить цель",
+    "name": "Название цели",
+    "namePlaceholder": "Напр.: iPhone 16, Дом, Машина...",
+    "targetAmount": "Целевая цена",
+    "monthlyContribution": "Ежемесячные накопления",
+    "suggested": "Предложение на основе твоих финансов: {{amount}}/мес",
+    "addFunds": "Пополнить",
+    "addFundsTitle": "Пополнить эту цель",
+    "amountToAdd": "Сумма пополнения",
+    "save": "Сохранить",
+    "add": "Создать",
+    "saving": "Сохранение...",
+    "noGoals": "Пока нет целей. Создай одну, чтобы начать копить!",
+    "remaining": "осталось",
+    "estimatedDate": "Ориентировочная дата цели",
+    "monthsLeft_one": "Остался {{count}} месяц",
+    "monthsLeft_few": "Осталось {{count}} месяца",
+    "monthsLeft_many": "Осталось {{count}} месяцев",
+    "monthsLeft_other": "Осталось {{count}} месяцев",
+    "reached": "Цель достигнута 🎉",
+    "noContribution": "Добавь ежемесячный взнос для оценки даты",
+    "deleteTitle": "Удалить эту цель?",
+    "deleteBody": "«{{name}}» будет удалена безвозвратно.",
+    "deleting": "Удаление...",
+    "validation": {
+      "nameRequired": "Введите название",
+      "targetPositive": "Сумма должна быть положительной",
+      "contributionPositive": "Сумма должна быть положительной"
+    }
   }
 }

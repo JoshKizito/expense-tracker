@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeftRight, PieChart, Settings } from "lucide-react";
+import { ArrowLeftRight, PieChart, Settings, Target } from "lucide-react";
 
 function navLinkClass(isActive: boolean): string {
   return `flex items-center justify-center md:justify-start gap-3 rounded-xl transition ${
@@ -15,6 +15,7 @@ export default function AppNav() {
 
   const NAV_ITEMS = [
     { to: "/dashboard", icon: ArrowLeftRight, label: t("nav.history") },
+    { to: "/goals", icon: Target, label: t("nav.goals") },
     { to: "/stats", icon: PieChart, label: t("nav.stats") },
     { to: "/settings", icon: Settings, label: t("nav.settings") },
   ];

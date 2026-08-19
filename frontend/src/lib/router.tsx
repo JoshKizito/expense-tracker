@@ -4,6 +4,7 @@ import RegisterPage from "@/features/auth/pages/RegisterPage";
 import ProtectedRoute from "@/features/auth/components/ProtectedRoute";
 import AppLayout from "@/components/layout/AppLayout";
 import DashboardPage from "@/pages/DashboardPage";
+import GoalsPage from "@/pages/GoalsPage";
 import StatsPage from "@/pages/StatsPage";
 import SettingsPage from "@/pages/SettingsPage";
 
@@ -18,6 +19,7 @@ export const router = createBrowserRouter([
         element: <AppLayout />,
         children: [
           { path: "/dashboard", element: <DashboardPage /> },
+          { path: "/goals", element: <GoalsPage /> },
           { path: "/stats", element: <StatsPage /> },
           { path: "/settings", element: <SettingsPage /> },
         ],

@@ -9,6 +9,7 @@
   },
   "nav": {
     "history": "Historique",
+    "goals": "Objectifs",
     "stats": "Stats",
     "settings": "Réglages"
   },
@@ -57,7 +58,19 @@
     "today": "Aujourd'hui",
     "yesterday": "Hier",
     "searchPlaceholder": "Rechercher une transaction...",
-    "noResults": "Aucun résultat pour ces filtres."
+    "noResults": "Aucun résultat pour ces filtres.",
+    "exportCsv": "Exporter",
+    "exportChooseTitle": "Que veux-tu exporter ?",
+    "exportAll": "Tout l'historique",
+    "exportFiltered": "Résultat filtré actuel",
+    "exportItems": "transactions",
+    "csvExpenseLabel": "Dépense",
+    "csvIncomeLabel": "Revenu",
+    "csvDate": "Date",
+    "csvDescription": "Description",
+    "csvCategory": "Catégorie",
+    "csvType": "Type",
+    "csvAmount": "Montant"
   },
   "expenses": {
     "newTransaction": "Nouvelle transaction",
@@ -112,5 +125,36 @@
     "to": "Au",
     "reset": "Réinitialiser",
     "apply": "Appliquer"
+  },
+  "goals": {
+    "title": "Objectifs",
+    "newGoal": "Nouvel objectif",
+    "edit": "Modifier l'objectif",
+    "name": "Nom de l'objectif",
+    "namePlaceholder": "Ex: iPhone 16, Maison, Voiture...",
+    "targetAmount": "Prix cible",
+    "monthlyContribution": "Épargne mensuelle",
+    "suggested": "Suggestion basée sur tes finances : {{amount}}/mois",
+    "addFunds": "Ajouter des fonds",
+    "addFundsTitle": "Ajouter à cet objectif",
+    "amountToAdd": "Montant à ajouter",
+    "save": "Enregistrer",
+    "add": "Créer",
+    "saving": "Enregistrement...",
+    "noGoals": "Aucun objectif pour l'instant. Crées-en un pour commencer à épargner !",
+    "remaining": "restant",
+    "estimatedDate": "Objectif estimé pour",
+    "monthsLeft_one": "{{count}} mois restant",
+    "monthsLeft_other": "{{count}} mois restants",
+    "reached": "Objectif atteint 🎉",
+    "noContribution": "Ajoute une épargne mensuelle pour estimer une date",
+    "deleteTitle": "Supprimer cet objectif ?",
+    "deleteBody": "« {{name}} » sera définitivement supprimé.",
+    "deleting": "Suppression...",
+    "validation": {
+      "nameRequired": "Nom requis",
+      "targetPositive": "Le montant doit être positif",
+      "contributionPositive": "Le montant doit être positif"
+    }
   }
 }

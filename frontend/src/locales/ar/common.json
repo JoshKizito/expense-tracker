@@ -9,6 +9,7 @@
   },
   "nav": {
     "history": "السجل",
+    "goals": "الأهداف",
     "stats": "الإحصائيات",
     "settings": "الإعدادات"
   },
@@ -57,7 +58,19 @@
     "today": "اليوم",
     "yesterday": "أمس",
     "searchPlaceholder": "البحث عن معاملة...",
-    "noResults": "لا توجد نتائج لهذه الفلاتر."
+    "noResults": "لا توجد نتائج لهذه الفلاتر.",
+    "exportCsv": "تصدير",
+    "exportChooseTitle": "ماذا تريد أن تصدّر؟",
+    "exportAll": "كل السجل",
+    "exportFiltered": "النتيجة المفلترة الحالية",
+    "exportItems": "معاملات",
+    "csvExpenseLabel": "مصروف",
+    "csvIncomeLabel": "دخل",
+    "csvDate": "التاريخ",
+    "csvDescription": "الوصف",
+    "csvCategory": "الفئة",
+    "csvType": "النوع",
+    "csvAmount": "المبلغ"
   },
   "expenses": {
     "newTransaction": "معاملة جديدة",
@@ -112,5 +125,39 @@
     "to": "إلى",
     "reset": "إعادة تعيين",
     "apply": "تطبيق"
+  },
+  "goals": {
+    "title": "الأهداف",
+    "newGoal": "هدف جديد",
+    "edit": "تعديل الهدف",
+    "name": "اسم الهدف",
+    "namePlaceholder": "مثال: آيفون 16، منزل، سيارة...",
+    "targetAmount": "السعر المستهدف",
+    "monthlyContribution": "الادخار الشهري",
+    "suggested": "اقتراح بناءً على أموالك: {{amount}}/شهريًا",
+    "addFunds": "إضافة أموال",
+    "addFundsTitle": "إضافة إلى هذا الهدف",
+    "amountToAdd": "المبلغ المراد إضافته",
+    "save": "حفظ",
+    "add": "إنشاء",
+    "saving": "جارٍ الحفظ...",
+    "noGoals": "لا توجد أهداف بعد. أنشئ واحدًا لتبدأ الادخار!",
+    "remaining": "متبقٍ",
+    "estimatedDate": "التاريخ المقدر للهدف",
+    "monthsLeft_one": "شهر واحد متبقٍ",
+    "monthsLeft_two": "شهران متبقيان",
+    "monthsLeft_few": "{{count}} أشهر متبقية",
+    "monthsLeft_many": "{{count}} شهرًا متبقيًا",
+    "monthsLeft_other": "{{count}} شهر متبقٍ",
+    "reached": "تم تحقيق الهدف 🎉",
+    "noContribution": "أضف مساهمة شهرية لتقدير التاريخ",
+    "deleteTitle": "حذف هذا الهدف؟",
+    "deleteBody": "سيتم حذف «{{name}}» نهائيًا.",
+    "deleting": "جارٍ الحذف...",
+    "validation": {
+      "nameRequired": "الاسم مطلوب",
+      "targetPositive": "يجب أن يكون المبلغ موجبًا",
+      "contributionPositive": "يجب أن يكون المبلغ موجبًا"
+    }
   }
 }

@@ -9,6 +9,7 @@
   },
   "nav": {
     "history": "History",
+    "goals": "Goals",
     "stats": "Stats",
     "settings": "Settings"
   },
@@ -57,7 +58,19 @@
     "today": "Today",
     "yesterday": "Yesterday",
     "searchPlaceholder": "Search a transaction...",
-    "noResults": "No results for these filters."
+    "noResults": "No results for these filters.",
+    "exportCsv": "Export",
+    "exportChooseTitle": "What do you want to export?",
+    "exportAll": "Full history",
+    "exportFiltered": "Current filtered result",
+    "exportItems": "transactions",
+    "csvExpenseLabel": "Expense",
+    "csvIncomeLabel": "Income",
+    "csvDate": "Date",
+    "csvDescription": "Description",
+    "csvCategory": "Category",
+    "csvType": "Type",
+    "csvAmount": "Amount"
   },
   "expenses": {
     "newTransaction": "New transaction",
@@ -112,5 +125,36 @@
     "to": "To",
     "reset": "Reset",
     "apply": "Apply"
+  },
+  "goals": {
+    "title": "Goals",
+    "newGoal": "New goal",
+    "edit": "Edit goal",
+    "name": "Goal name",
+    "namePlaceholder": "E.g. iPhone 16, House, Car...",
+    "targetAmount": "Target price",
+    "monthlyContribution": "Monthly savings",
+    "suggested": "Suggestion based on your finances: {{amount}}/month",
+    "addFunds": "Add funds",
+    "addFundsTitle": "Add to this goal",
+    "amountToAdd": "Amount to add",
+    "save": "Save",
+    "add": "Create",
+    "saving": "Saving...",
+    "noGoals": "No goals yet. Create one to start saving!",
+    "remaining": "remaining",
+    "estimatedDate": "Estimated goal date",
+    "monthsLeft_one": "{{count}} month left",
+    "monthsLeft_other": "{{count}} months left",
+    "reached": "Goal reached 🎉",
+    "noContribution": "Add a monthly contribution to estimate a date",
+    "deleteTitle": "Delete this goal?",
+    "deleteBody": "\"{{name}}\" will be permanently deleted.",
+    "deleting": "Deleting...",
+    "validation": {
+      "nameRequired": "Name required",
+      "targetPositive": "Amount must be positive",
+      "contributionPositive": "Amount must be positive"
+    }
   }
 }
